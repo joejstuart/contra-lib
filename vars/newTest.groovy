@@ -1,6 +1,6 @@
 def call(Map parameters = [:]) {
 
-    msgHeader = fedMsgHeader(branch: 'newBranch')
+    def msgHeader = fedMsgHeader(branch: 'newBranch')
 
     print msgHeader()
 }
