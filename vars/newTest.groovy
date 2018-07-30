@@ -1,4 +1,6 @@
 def call(Map parameters = [:]) {
 
-    print this.fedMsgHeader()
+    def msgHeader = fedMsgHeader(stuff: 'what')
+    print msgHeader
+
 }
