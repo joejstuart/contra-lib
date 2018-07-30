@@ -1,4 +1,4 @@
 def call(Map parameters = [:]) {
 
-    print this.h1
+    print this.fedMsgHeader()
 }
