@@ -1,6 +1,4 @@
 def call(Map parameters = [:]) {
 
-    def msgHeader = fedMsgHeader(branch: 'newBranch')
-
-    print msgHeader
+    print this.h1
 }
