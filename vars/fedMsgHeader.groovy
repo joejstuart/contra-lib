@@ -1,6 +1,5 @@
 def call(Map parameters = [:]) {
 
-    return {
         def defaultBuildUrl = "${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline/"
 
         return [
@@ -19,5 +18,4 @@ def call(Map parameters = [:]) {
                 topic            : parameters.get('topic') ?: 'N/A',
                 username         : parameters.get('username') ?: 'N/A'
         ]
-    }
 }
