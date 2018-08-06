@@ -11,6 +11,14 @@ def call() {
     println result
 
     def y = readYaml text: libraryResource('test.yaml')
+
+    def result1 = [:]
+    for (def m : y.entrySet()) {
+        result1[m.key] = m.value
+    }
+
+    println result1
+
     
 }
 
