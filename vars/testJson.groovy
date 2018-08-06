@@ -2,12 +2,12 @@ def call() {
 
     def j = readJSON text: libraryResource('test.json')
 
-    print j['test']
-
-    print j
+    for (def m : j.entrySet()) {
+        println m.key
+        println m.value
+    }
 
     def y = readYaml text: libraryResource('test.yaml')
-
     
 }
 
