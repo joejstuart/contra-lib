@@ -1,2 +1,1 @@
-test:
-    key1: env.JENKINS_URL
+key1: env.JENKINS_URL
