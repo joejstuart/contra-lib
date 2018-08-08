@@ -1,4 +1,4 @@
-def call() {
+def stuff() {
 
     return 'stuff'
 }
