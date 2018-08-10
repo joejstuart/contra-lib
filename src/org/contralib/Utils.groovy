@@ -1,5 +1,12 @@
 package org.contralib
 
+
+Map.metaClass.addNested = { Map rhs ->
+    def lhs = delegate
+    rhs.each { k, v -> lhs[k] = lhs[k] in Map ? lhs[k].addNested(v) : v }
+    lhs
+}
+
 /**
  * @param request - the url that refers to the package
  * @param prefix - env prefix

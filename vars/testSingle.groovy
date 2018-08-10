@@ -1,9 +1,11 @@
-def stuff() {
+import org.contralib.Utils
 
-    return 'stuff'
+
+def call(Map parameters = [:]) {
+
+    Map test = ['pipeline': ['test': 'one']]
+
+    parameters.addNested(test)
+
+    println parameters
 }
-
-def isValid() {
-    return true
-}
-
