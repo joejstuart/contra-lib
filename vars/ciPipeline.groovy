@@ -37,7 +37,7 @@ def call(Map parameters, Closure body) {
             if (umbMessage) {
                 sendMessageWithAudit(umbMessage())
             }
-            
+
             body()
         } catch (e) {
             // Set build result
@@ -59,8 +59,8 @@ def call(Map parameters, Closure body) {
             }
 
             if (umbMessage) {
-                runtime = ['pipeline': ['runtime': currentBuild.getDuration()]]
-                sendMessageWithAudit(umbMessage(['pipeline': ['runtime': currentBuild.getDuration()]]))
+                runtimeMsg = ['pipeline': ['runtime': currentBuild.getDuration()]]
+                sendMessageWithAudit(umbMessage(runtimeMsg))
             }
 
             if (decorateBuild) {
