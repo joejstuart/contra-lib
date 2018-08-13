@@ -25,7 +25,6 @@ def call(Map parameters = [:], Closure body) {
     def runtime = 0.0
 
     try {
-
         print "running pipeline step: ${name}"
         runtime = cimetrics.timed measurementName, name, {
 
@@ -34,24 +33,16 @@ def call(Map parameters = [:], Closure body) {
             stageStatus = 'complete'
 
         }
-
     } catch(e) {
-
         stageStatus = 'error'
         echo "${env.JOB_NAME} failed in stage: ${name} with error: ${e.toString()}"
         throw e
-
     } finally {
-
         if (stageMsg) {
-            def runtimeMsg = ['stage': ['runtime': runtime,
-                                        'name': env.STAGE_NAME,
-                                        'status': stageStatus
-                                       ]
-            ]
-            sendMessageWithAudit(stageMsg(runtimeMsg))
-        }
+            def stageContent = umbStageContent(runtime: runtime, name: env.STAGE_NAME, status: stageStatus)
 
+            sendMessageWithAudit(stageMsg(stageContent()))
+        }
         print "end of pipeline step: ${name}"
     }
 }

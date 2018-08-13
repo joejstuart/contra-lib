@@ -20,8 +20,7 @@ import org.contralib.ciMetrics
 def call(Map parameters, Closure body) {
     def buildPrefix = parameters.get('buildPrefix')
     def packageName = parameters.get('package_name')
-    def errorMsg = parameters.get('errorMsg')
-    def completeMsg = parameters.get('completeMsg')
+    def umbMessage = parameters.get('umbMessage')
     def decorateBuild = parameters.get('decorateBuild')
     def archiveArtifacts = parameters.get('archiveArtifacts')
     def timeoutValue = parameters.get('timeout', 30)
@@ -35,16 +34,16 @@ def call(Map parameters, Closure body) {
     timeout(time: timeoutValue, unit: 'MINUTES') {
 
         try {
+            if (umbMessage) {
+                sendMessageWithAudit(umbMessage())
+            }
+            
             body()
         } catch (e) {
             // Set build result
             currentBuild.result = "FAILURE"
 
             echo e.toString()
-
-            if (errorMsg) {
-                sendMessageWithAudit(errorMsg(runtime: currentBuild.getDuration()))
-            }
 
             throw e
         } finally {
@@ -59,9 +58,9 @@ def call(Map parameters, Closure body) {
                 pipelineMetrics(buildPrefix: buildPrefix, package_name: packageName)
             }
 
-            if (completeMsg) {
+            if (umbMessage) {
                 runtime = ['pipeline': ['runtime': currentBuild.getDuration()]]
-                sendMessageWithAudit(completeMsg(['pipeline': ['runtime': currentBuild.getDuration()]))
+                sendMessageWithAudit(umbMessage(['pipeline': ['runtime': currentBuild.getDuration()]]))
             }
 
             if (decorateBuild) {
