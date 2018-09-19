@@ -84,6 +84,7 @@ job.addScriptPath('pipelineFiles/Jenkinsfile')
 job.discardOldBranches()
 ```
 ##### PipelineJob
+This library supports create a [Pipeline Job](https://jenkins.io/doc/book/pipeline/)
 ```groovy
 import org.centos.contra.jobdsl.PipelineJob
 
