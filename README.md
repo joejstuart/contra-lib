@@ -88,7 +88,6 @@ This library supports create a [Pipeline Job](https://jenkins.io/doc/book/pipeli
 ```groovy
 import org.centos.contra.jobdsl.PipelineJob
 
-
 def job = new PipelineJob(this, 'samplePipelineJob')
 job.fedMsgTrigger('org.fedoraprojectb', 'fedora-fedmsg', ['check1': 'value1'])
 job.addGit([branch: 'master', repoUrl: 'https://github.com/CentOS-PaaS-SIG/contra-env-sample-project.git'])
