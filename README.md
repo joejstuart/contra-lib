@@ -68,6 +68,33 @@ writeToInflux(customData: ['build_time': 100], customDataMap: ['mybuild': ['buil
 ```
 After the pipeline finishes, the ciPipeline library will send all collected metrics to Influxdb.
 
+#### Job DSL Support
+Libraries to support the [Jenkins Job DSL](https://github.com/jenkinsci/job-dsl-plugin) are located in src/org/centos/contra/jobdsl.
+
+The current supported libraries are MutliBranchJob and PipelineJob.
+##### MultiBranchJob
+This library supports creating a [Multi Branch Pipeline](https://plugins.jenkins.io/workflow-multibranch)
+```groovy
+import org.centos.contra.jobdsl.MultiBranchJob
+
+def job = new MultiBranchJob(this, name)
+job.addGitHub('contra-lib', 'openshift')
+job.addComment("\\[test\\]")
+job.addScriptPath('pipelineFiles/Jenkinsfile')
+job.discardOldBranches()
+```
+##### PipelineJob
+```groovy
+import org.centos.contra.jobdsl.PipelineJob
+
+
+def job = new PipelineJob(this, 'samplePipelineJob')
+job.fedMsgTrigger('org.fedoraprojectb', 'fedora-fedmsg', ['check1': 'value1'])
+job.addGit([branch: 'master', repoUrl: 'https://github.com/CentOS-PaaS-SIG/contra-env-sample-project.git'])
+job.logRotate()
+
+```
+
 #### Example Usage:
 ```
 package_name = env.CI_MESSAGE['name']
