@@ -1,5 +1,7 @@
 import org.centos.contra.pipeline.ciMetrics
 
+import jenkins.metrics.impl.TimeInQueueAction;
+
 
 def call(Map parameters = [:]) {
     def cimetrics = ciMetrics.metricsInstance
@@ -9,6 +11,11 @@ def call(Map parameters = [:]) {
     def customDataMapTags = parameters.get('customDataMapTags', [:])
     def customData = parameters.get('customData', [:])
     def customDataTags = parameters.get('customDataTags', [:])
+
+    def build = currentBuild.getRawBuild()
+    def action = build.getAction(jenkins.metrics.impl.TimeInQueueAction.class).getQueuingDurationMillis()
+
+    print action
 
     if (buildPrefix) {
         cimetrics.prefix = buildPrefix
