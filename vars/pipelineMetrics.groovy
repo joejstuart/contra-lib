@@ -13,8 +13,7 @@ def call(Map parameters = [:]) {
     def customDataTags = parameters.get('customDataTags', [:])
 
 
-    def build = currentBuild.getRawBuild()
-    def action = build.getAction(jenkins.metrics.impl.TimeInQueueAction.class).getQueuingDurationMillis()
+    def time = time_in_queue()
 
     if (buildPrefix) {
         cimetrics.prefix = buildPrefix
@@ -51,3 +50,11 @@ def call(Map parameters = [:]) {
                   customDataTags: cimetrics.customDataTags,
                   customPrefix: buildPrefix)
 }
+
+@NonCPS
+def time_in_queue() {
+    def build = currentBuild.getRawBuild()
+    def action = build.getAction(jenkins.metrics.impl.TimeInQueueAction.class).getQueuingDurationMillis()
+    return action
+}
+
