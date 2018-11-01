@@ -12,11 +12,14 @@ def call(Map parameters = [:]) {
     def customData = parameters.get('customData', [:])
     def customDataTags = parameters.get('customDataTags', [:])
 
+/*
+
+
     def build = currentBuild.getRawBuild()
     def action = build.getAction(jenkins.metrics.impl.TimeInQueueAction.class).getQueuingDurationMillis()
 
     print action
-
+*/
     if (buildPrefix) {
         cimetrics.prefix = buildPrefix
     }
