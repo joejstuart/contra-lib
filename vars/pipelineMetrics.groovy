@@ -15,6 +15,8 @@ def call(Map parameters = [:]) {
 
     def time = time_in_queue()
 
+    print time
+
     if (buildPrefix) {
         cimetrics.prefix = buildPrefix
     }
