@@ -67,7 +67,8 @@ def call(Map parameters = [:], Closure body) {
             def privileged = containerProps.get('privileged', true)
             def containerImageName = containerProps.get('image', containerName)
             def namespace = containerProps.get('namespace', openshift_namespace)
-            def imageUrl = "${docker_repo_url}/${namespace}/${containerImageName}:${tag}"
+            def registry_url = containerProps.get('registry_url', docker_repo_url)
+            def imageUrl = "${registry_url}/${namespace}/${containerImageName}:${tag}"
 
             containerTemplates << containerTemplate(name: containerName,
                     alwaysPullImage: true,
