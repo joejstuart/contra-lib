@@ -38,7 +38,6 @@ def call(Map parameters = [:], Closure body) {
     def postBuild = parameters.get('postBuild')
     def timeoutValue = parameters.get('timeout', 120)
     def sendMetrics = parameters.get('sendMetrics', true)
-    def bodyWrapper = parameters.get('bodyWrapper', { Closure bodyWrapperClosure -> bodyWrapperClosure() })
 
     def cimetrics = ciMetrics.metricsInstance
     cimetrics.prefix = buildPrefix
@@ -54,9 +53,8 @@ def call(Map parameters = [:], Closure body) {
                 preBuild()
             }
 
-            bodyWrapper() {
-                body()
-            }
+            body()
+            
             topicSuffix = "complete"
         } catch (e) {
             // Set build result
